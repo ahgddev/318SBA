@@ -8,7 +8,7 @@
 // As a pizza store owner I should be able to manage toppings available for my pizza chefs.
 
 // It should allow me to add a new topping
-// It should allow me to delete an existing topping
+
 // It should allow me to update an existing topping
 import toppingDB from "../data/database.mjs";
 import express from "express";
@@ -17,19 +17,29 @@ const router = express.Router();
 
 // It should allow me to see a list of available toppings
 router.route("/").get(async (req, res) => {
+  res.sendFile('pages/toppingsManager.html', { root: "." });
   let allToppingsData = await toppingDB.collection("Ingredients");
   let foundToppings = await allToppingsData.find({}).toArray();
-
   res.send(foundToppings).status(200);
+}).post(async (req, res) => {
+  let newTopping = req.body;
+  // toppingDB.collection.
 });
 
 //Get a topping with a specific ID
+// DELETE: Delete a single Topping
 router.route("/:id").get(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
     let searchData = { topping_id: Number(req.params.id) };
     let foundTopping = await allToppingsData.findOne(searchData);
   
     res.send(foundTopping).status(200);
+  }).delete(async (req, res) => {
+    // let allToppingsData = await toppingDB.collection("Ingredients");
+    // let searchData = { topping_id: Number(req.params.id) };
+    // await allToppingsData.deleteOne(searchData);
+  
+    // res.send("Topping deleted").status(204);
   });
 
 export default router;
