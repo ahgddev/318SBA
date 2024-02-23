@@ -5,10 +5,8 @@
 //Create PATCH or PUT routes for data, as appropriate. At least one data category should allow for client manipulation via a PATCH or PUT request.
 //Create DELETE routes for data, as appropriate. At least one data category should allow for client deletion via a DELETE request.
 
-
 // As a pizza store owner I should be able to manage toppings available for my pizza chefs.
 
-// It should allow me to see a list of available toppings
 // It should allow me to add a new topping
 // It should allow me to delete an existing topping
 // It should allow me to update an existing topping
@@ -17,11 +15,21 @@ import express from "express";
 import { ObjectId } from "mongodb";
 const router = express.Router();
 
+// It should allow me to see a list of available toppings
 router.route("/").get(async (req, res) => {
-let collection = await toppingDB.collection("Ingredients");
-  let results = await collection.find({}).toArray();
+  let allToppingsData = await toppingDB.collection("Ingredients");
+  let foundToppings = await allToppingsData.find({}).toArray();
 
-  res.send(results).status(200);
+  res.send(foundToppings).status(200);
 });
 
-export default router
+//Get a topping with a specific ID
+router.route("/:id").get(async (req, res) => {
+    let allToppingsData = await toppingDB.collection("Ingredients");
+    let searchData = { topping_id: Number(req.params.id) };
+    let foundTopping = await allToppingsData.findOne(searchData);
+  
+    res.send(foundTopping).status(200);
+  });
+
+export default router;
