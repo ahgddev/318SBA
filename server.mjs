@@ -1,5 +1,9 @@
-const express = require('express');
+import express from "express";
+import dotenv from "dotenv";
+import toppingRoutes from "./routes/toppingsRoutes.mjs";
+dotenv.config();
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Manage Toppings
 // Utilize route parameters, where appropriate.
@@ -32,3 +36,8 @@ const app = express();
 
 // Adhere to the guiding principles of REST.
 // Utilize reasonable code organization practices.
+app.use("/toppings", toppingRoutes);
+
+app.listen(PORT,  () => {
+    console.log("Listening....");
+});
