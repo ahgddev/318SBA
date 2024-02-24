@@ -53,8 +53,7 @@ router
   })
   .patch(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
-    let searchData = await allToppingsData.find({ topping_id: Number(req.params.id) });
-    let result = await allToppingsData.updateOne(searchData, {
+    let updateResult = await allToppingsData.updateOne({ topping_id: Number(req.params.id) }, {
       $set: { 
         topping_id: Number(req.params.id),
         name: req.body.name,
@@ -64,8 +63,8 @@ router
        }
     });
 
-    if (!searchData) res.send("Topping not found").status(400);
-    res.json(result).status(200);
+    if (!updateResult) res.send("Topping not found").status(400);
+    res.json(updateResult).status(200);
   });
 
 export default router;
