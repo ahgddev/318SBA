@@ -8,7 +8,7 @@
 // As a pizza store owner I should be able to manage toppings available for my pizza chefs.
 
 // It should allow me to add a new topping
-// It should allow me to update an existing topping
+
 // It should not allow me to enter duplicate pizzas
 // It should not allow me to enter duplicate toppings
 
@@ -17,7 +17,6 @@ import express from "express";
 import { ObjectId } from "mongodb";
 const router = express.Router();
 
-// It should allow me to see a list of available toppings
 router
   .route("/")
   .get(async (req, res) => {
@@ -31,6 +30,15 @@ router
     //Need to work on adding a topping.
     // toppingDB.collection.
   });
+
+// Get all Toppings
+// GET: Get all toppings. A specific route to get all of them will be useful.
+router.route("/all").get(async (req, res) => {
+  res.sendFile("pages/toppingsManager.html", { root: "." });
+  let allToppingsData = await toppingDB.collection("Ingredients");
+  let foundToppings = await allToppingsData.find({}).toArray();
+  res.send(foundToppings).status(200);
+});
 
 //Get a topping with a specific ID
 // DELETE: Delete a single Topping
@@ -53,15 +61,18 @@ router
   })
   .patch(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
-    let updateResult = await allToppingsData.updateOne({ topping_id: Number(req.params.id) }, {
-      $set: { 
-        topping_id: Number(req.params.id),
-        name: req.body.name,
-        type: req.body.type,
-        serving_size: req.body.serving_size,
-        price_per_serving: req.body.price_per_serving
-       }
-    });
+    let updateResult = await allToppingsData.updateOne(
+      { topping_id: Number(req.params.id) },
+      {
+        $set: {
+          topping_id: Number(req.params.id),
+          name: req.body.name,
+          type: req.body.type,
+          serving_size: req.body.serving_size,
+          price_per_serving: req.body.price_per_serving,
+        },
+      }
+    );
 
     if (!updateResult) res.send("Topping not found").status(400);
     res.json(updateResult).status(200);
