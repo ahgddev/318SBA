@@ -1,9 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
+import bodyParser from "body-parser";
 import toppingRoutes from "./routes/toppingsRoutes.mjs";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Manage Toppings
 // Utilize route parameters, where appropriate.
@@ -29,8 +33,7 @@ const PORT = process.env.PORT || 3000;
 
 //Create and use at least two pieces of custom middleware.
 //Create and use error-handling middleware.
-// It should not allow me to enter duplicate pizzas
-// It should not allow me to enter duplicate toppings
+
 
 //Utilize reasonable data structuring practices.
 
