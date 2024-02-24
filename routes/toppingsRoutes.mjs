@@ -53,11 +53,10 @@ router
   })
   .patch(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
-    let searchData = await allToppingsData.findOne({ topping_id: Number(req.params.id) });
-    console.log(req.body)
+    let searchData = await allToppingsData.find({ topping_id: Number(req.params.id) });
     let result = await allToppingsData.updateOne(searchData, {
       $set: { 
-        topping_id: allToppingsData.find().sort({topping_id:1}) + 1,
+        topping_id: Number(req.params.id),
         name: req.body.name,
         type: req.body.type,
         serving_size: req.body.serving_size,
