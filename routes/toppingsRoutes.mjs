@@ -5,11 +5,6 @@
 //Create PATCH or PUT routes for data, as appropriate. At least one data category should allow for client manipulation via a PATCH or PUT request.
 //Create DELETE routes for data, as appropriate. At least one data category should allow for client deletion via a DELETE request.
 
-// As a pizza store owner I should be able to manage toppings available for my pizza chefs.
-
-
-// It should not allow me to enter duplicate pizzas
-// It should not allow me to enter duplicate toppings
 
 import toppingDB from "../data/database.mjs";
 import express from "express";
@@ -19,7 +14,7 @@ const router = express.Router();
 
 // Base route, get all Toppings by default
 // GET: Get all toppings.
-// POST: Make a new topping.
+// POST: Make a new topping. You cannot add duplicate toppings.
 router
   .route("/")
   .get(async (req, res) => {
@@ -31,6 +26,9 @@ router
   .post(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
     let lastTopping = await allToppingsData.find().sort({topping_id:-1}).limit(1).toArray();
+    if(lastTopping[0].name == req.body.name){
+      throw new Error("This topping already exists")
+    }
     console.log(lastTopping)
     let newTopping = {
         topping_id: lastTopping[0].topping_id + 1,
