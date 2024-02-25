@@ -45,7 +45,7 @@ router
 // Get all Toppings
 // GET: Get all toppings. A specific route to get all of them will be useful.
 router.route("/all").get(async (req, res) => {
-  res.sendFile("pages/toppingsManager.html", { root: "." });
+  res.render("toppings.pug", { root: "." });
   let allToppingsData = await toppingDB.collection("Ingredients");
   let foundToppings = await allToppingsData.find({}).toArray();
   res.send(foundToppings).status(200);
