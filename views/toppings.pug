@@ -6,7 +6,7 @@ doctype html
 head
   meta(charset='UTF-8')
   meta(name='viewport', content='width=device-width, initial-scale=1.0')
-  script(src='/src/toppingsindex.js')
+  
   link(rel='stylesheet', href='styles.css')
   title Pizza Manager: Toppings
 header
@@ -22,7 +22,7 @@ main
       li
         a(href='pizzasManager.html') Pizza Manager
       li
-        a(href='toppingsManager.html') Toppings Manager
+        a(href='toppings.pug') Toppings Manager
   section
     #searchContainer
       input#searchBar(type='search', name='search_bar')
@@ -32,3 +32,4 @@ main
       // Populate items in here!
 footer
   // Sources go here, also c me!
+script(src='/src/toppingsindex.js')

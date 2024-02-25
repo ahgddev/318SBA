@@ -17,11 +17,7 @@ const router = express.Router();
 router
   .route("/")
   .get(async (req, res) => {
-    // res.sendFile("pages/toppingsManager.html", { root: "." });
     res.render("toppings.pug", { root: "." });
-    let allToppingsData = await toppingDB.collection("Ingredients");
-    let foundToppings = await allToppingsData.find({}).toArray();
-    res.send(foundToppings).status(200);
   })
   .post(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
@@ -45,7 +41,6 @@ router
 // Get all Toppings
 // GET: Get all toppings. A specific route to get all of them will be useful.
 router.route("/all").get(async (req, res) => {
-  res.render("toppings.pug", { root: "." });
   let allToppingsData = await toppingDB.collection("Ingredients");
   let foundToppings = await allToppingsData.find({}).toArray();
   res.send(foundToppings).status(200);
