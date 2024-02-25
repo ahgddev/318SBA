@@ -7,4 +7,10 @@ block productContent
      option(value='ascending') Ascending
      option(value='descending') Descending
 
-    #{productTable}
+    #productTable 
+    each product in productData 
+        .productItem
+         h2 #{product.name} 
+          p #{product.type}
+          p #{product.serving_size}
+          p #{product.price_per_serving}

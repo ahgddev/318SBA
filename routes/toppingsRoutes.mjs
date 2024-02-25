@@ -46,7 +46,7 @@ router
 router.route("/all").get(async (req, res) => {
   let allToppingsData = await toppingDB.collection("Ingredients");
   let foundToppings = await allToppingsData.find({}).toArray();
-  res.send(foundToppings).status(200);
+  res.render('toppings.pug', { 'productData': foundToppings });
 });
 
 //Get a topping based on search parameters
