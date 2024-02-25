@@ -55,7 +55,8 @@ router.route("/search").get(async (req, res) => {
   let allToppingsData = await toppingDB.collection("Ingredients");
   let searchData = { name: req.query.name };
   let foundTopping = await allToppingsData.findOne(searchData);
-  res.send(foundTopping).status(200);
+  let convertTopping = [foundTopping]
+  res.render('toppings.pug', { 'productData': convertTopping });
 });
 
 //Sort toppings
@@ -75,7 +76,7 @@ router.route("/filter").get(async (req, res) => {
         .find(query)
         .sort({ price_per_serving: -1 })
         .toArray();
-      res.send(orderedToppingsASC).status(200);
+        res.render('toppings.pug', { 'productData': orderedToppingsASC });
       break;
     //Low price to high price
     case "descending":
@@ -83,7 +84,7 @@ router.route("/filter").get(async (req, res) => {
         .find(query)
         .sort({ price_per_serving: 1 })
         .toArray();
-      res.send(orderedToppingsDES).status(200);
+        res.render('toppings.pug', { 'productData': orderedToppingsDES });
       break;
     //Alphabetical order
     case "alphabetical":
@@ -91,7 +92,7 @@ router.route("/filter").get(async (req, res) => {
         .find(query)
         .sort({ name: 1 })
         .toArray();
-      res.send(orderedToppingsALPHA).status(200);
+        res.render('toppings.pug', { 'productData': orderedToppingsALPHA });
       break;
   }
 });
