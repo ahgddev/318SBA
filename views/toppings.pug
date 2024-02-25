@@ -2,4 +2,33 @@
 // If you are stuck on how to approach this, think about ways you could render the current state of your API's data for easy viewing.
 //Use simple CSS to style the rendered views.
 //Add toppings data table.
-p This is the toppings page.
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  script(src='/src/toppingsindex.js')
+  link(rel='stylesheet', href='styles.css')
+  title Pizza Manager: Toppings
+header
+  h1 Pizza Toppings Manager
+main
+  nav#sideBar
+    img(src='', alt='user_image')
+    p#userHello
+      | Hello 
+      em USERNAME
+    p#userTitle Manager
+    ul
+      li
+        a(href='pizzasManager.html') Pizza Manager
+      li
+        a(href='toppingsManager.html') Toppings Manager
+  section
+    #searchContainer
+      input#searchBar(type='search', name='search_bar')
+      button(type='submit')
+        img(src='', alt='search_icon')
+    #productList
+      // Populate items in here!
+footer
+  // Sources go here, also c me!
