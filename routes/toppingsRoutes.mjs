@@ -7,7 +7,6 @@
 
 // As a pizza store owner I should be able to manage toppings available for my pizza chefs.
 
-// It should allow me to add a new topping
 
 // It should not allow me to enter duplicate pizzas
 // It should not allow me to enter duplicate toppings
@@ -17,6 +16,10 @@ import express from "express";
 import { ObjectId } from "mongodb";
 const router = express.Router();
 
+
+// Base route, get all Toppings by default
+// GET: Get all toppings.
+// POST: Make a new topping.
 router
   .route("/")
   .get(async (req, res) => {
@@ -26,9 +29,19 @@ router
     res.send(foundToppings).status(200);
   })
   .post(async (req, res) => {
-    let newTopping = req.body;
-    //Need to work on adding a topping.
-    // toppingDB.collection.
+    let allToppingsData = await toppingDB.collection("Ingredients");
+    let lastTopping = await allToppingsData.find().sort({topping_id:-1}).limit(1).toArray();
+    console.log(lastTopping)
+    let newTopping = {
+        topping_id: lastTopping[0].topping_id + 1,
+        name: req.body.name,
+        type: req.body.type,
+        serving_size: req.body.serving_size,
+        price_per_serving: req.body.price_per_serving,
+    };
+    allToppingsData.insertOne(newTopping);
+
+    res.send("Topping added!").status(201);
   });
 
 // Get all Toppings
