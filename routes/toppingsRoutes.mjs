@@ -66,7 +66,6 @@ router.route("/filter").get(async (req, res) => {
   const query = {};
   //filter toppings based on query given
   let searchData = req.query.q;
-  console.log(searchData);
   //Out of stock?
   //Last Modified?
   switch (searchData) {

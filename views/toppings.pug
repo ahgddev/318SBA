@@ -2,11 +2,13 @@ extends default
 
 block productContent
     h1 Toppings
-    select#productFilter(name='Order Filter')
-     option(value='alpha') Alphabetical
-     option(value='ascending') Price: High to Low
-     option(value='descending') Price: Low to High
 
+    form(method='GET', action='http://localhost:3000/toppings/filter')
+         select#productFilter(name='q' onchange='this.form.submit()')
+            option(value='') 
+            option(value='alphabetical') Alphabetical
+            option(value='ascending') Price: High to Low
+            option(value='descending') Price: Low to High
     button Add Topping
 
     #productTable 
