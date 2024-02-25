@@ -56,7 +56,7 @@ router.route("/search").get(async (req, res) => {
   let searchData = { name: req.query.name };
   let foundTopping = await allToppingsData.findOne(searchData);
   let convertTopping = [foundTopping]
-  res.render('toppings.pug', { productData: convertTopping});
+  res.render('toppings.pug', { productData: convertTopping, managerType: "toppings"});
 });
 
 //Sort toppings
