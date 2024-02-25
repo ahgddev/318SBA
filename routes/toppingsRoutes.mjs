@@ -39,7 +39,7 @@ router
     allToppingsData.insertOne(newTopping);
 
     res.send("Topping added!").status(201);
-});
+  });
 
 // Get all Toppings
 // GET: Get all toppings. A specific route to get all of them will be useful.
@@ -53,7 +53,7 @@ router.route("/all").get(async (req, res) => {
 //GET: Get a topping based on search parameters
 router.route("/search").get(async (req, res) => {
   let allToppingsData = await toppingDB.collection("Ingredients");
-  let searchData = { name: req.query.name }
+  let searchData = { name: req.query.name };
   let foundTopping = await allToppingsData.findOne(searchData);
   res.send(foundTopping).status(200);
 });
@@ -64,24 +64,33 @@ router.route("/filter").get(async (req, res) => {
   let allToppingsData = await toppingDB.collection("Ingredients");
   const query = {};
   //filter toppings based on query given
-  let searchData = req.query.q
-  console.log(searchData)
+  let searchData = req.query.q;
+  console.log(searchData);
   //Out of stock?
   //Last Modified?
   switch (searchData) {
-  //High Price to Low Price
+    //High Price to Low Price
     case "ascending":
-      let orderedToppingsASC = await allToppingsData.find(query).sort({ price_per_serving: -1 }).toArray();
+      let orderedToppingsASC = await allToppingsData
+        .find(query)
+        .sort({ price_per_serving: -1 })
+        .toArray();
       res.send(orderedToppingsASC).status(200);
       break;
-  //Low price to high price
+    //Low price to high price
     case "descending":
-      let orderedToppingsDES = await allToppingsData.find(query).sort({ price_per_serving: 1 }).toArray();
+      let orderedToppingsDES = await allToppingsData
+        .find(query)
+        .sort({ price_per_serving: 1 })
+        .toArray();
       res.send(orderedToppingsDES).status(200);
       break;
-  //Alphabetical order
+    //Alphabetical order
     case "alphabetical":
-      let orderedToppingsALPHA = await allToppingsData.find(query).sort({ name: 1 }).toArray();
+      let orderedToppingsALPHA = await allToppingsData
+        .find(query)
+        .sort({ name: 1 })
+        .toArray();
       res.send(orderedToppingsALPHA).status(200);
       break;
   }
