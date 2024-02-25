@@ -2,15 +2,15 @@
 // If you are stuck on how to approach this, think about ways you could render the current state of your API's data for easy viewing.
 //Use simple CSS to style the rendered views.
 //Add toppings data table.
+- var managerT = managerType
 doctype html
 head
   meta(charset='UTF-8')
   meta(name='viewport', content='width=device-width, initial-scale=1.0')
-  script(src='/src/toppingsindex.js')
   link(rel='stylesheet', href='styles.css')
-  title Pizza Manager: Toppings
+  title Pizza Manager
 header
-  h1 Pizza Toppings Manager
+  h1 Pizza Manager
 main
   nav#sideBar
     img(src='', alt='user_image')
@@ -25,9 +25,10 @@ main
         a(href='toppingsManager.html') Toppings Manager
   section
     #searchContainer
-      input#searchBar(type='search', name='search_bar')
-      button(type='submit')
-        img(src='', alt='search_icon')
+      form(action=`http://localhost:3000/${managerT}/search`, method="GET") 
+        input#searchBar(type='search', name='name')
+        button(type='submit')
+          img(src='', alt='search_icon')
     #productList
       block productContent
 footer

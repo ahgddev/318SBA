@@ -16,7 +16,7 @@ router
   .route("/")
   .get(async (req, res) => {
     // res.sendFile("pages/toppingsManager.html", { root: "." });
-    res.render("toppings.pug", { root: "." });
+    res.render("toppings.pug", { baseURL: true, managerType: "toppings"});
   })
   .post(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
@@ -46,7 +46,7 @@ router
 router.route("/all").get(async (req, res) => {
   let allToppingsData = await toppingDB.collection("Ingredients");
   let foundToppings = await allToppingsData.find({}).toArray();
-  res.render('toppings.pug', { 'productData': foundToppings });
+  res.render('toppings.pug', { 'productData': foundToppings, managerType: "toppings" });
 });
 
 //Get a topping based on search parameters
@@ -56,7 +56,7 @@ router.route("/search").get(async (req, res) => {
   let searchData = { name: req.query.name };
   let foundTopping = await allToppingsData.findOne(searchData);
   let convertTopping = [foundTopping]
-  res.render('toppings.pug', { 'productData': convertTopping });
+  res.render('toppings.pug', { productData: convertTopping});
 });
 
 //Sort toppings
@@ -76,7 +76,7 @@ router.route("/filter").get(async (req, res) => {
         .find(query)
         .sort({ price_per_serving: -1 })
         .toArray();
-        res.render('toppings.pug', { 'productData': orderedToppingsASC });
+        res.render('toppings.pug', { 'productData': orderedToppingsASC, managerType: "toppings" });
       break;
     //Low price to high price
     case "descending":
@@ -84,7 +84,7 @@ router.route("/filter").get(async (req, res) => {
         .find(query)
         .sort({ price_per_serving: 1 })
         .toArray();
-        res.render('toppings.pug', { 'productData': orderedToppingsDES });
+        res.render('toppings.pug', { 'productData': orderedToppingsDES, managerType: "toppings" });
       break;
     //Alphabetical order
     case "alphabetical":
@@ -92,7 +92,7 @@ router.route("/filter").get(async (req, res) => {
         .find(query)
         .sort({ name: 1 })
         .toArray();
-        res.render('toppings.pug', { 'productData': orderedToppingsALPHA });
+        res.render('toppings.pug', { 'productData': orderedToppingsALPHA, managerType: "toppings" });
       break;
   }
 });
@@ -106,8 +106,8 @@ router
     let allToppingsData = await toppingDB.collection("Ingredients");
     let searchData = { topping_id: Number(req.params.id) };
     let foundTopping = await allToppingsData.findOne(searchData);
-
-    res.send(foundTopping).status(200);
+    let convertTopping = [foundTopping]
+    res.render('toppings.pug', { 'productData': convertTopping, managerType: "toppings" });
   })
   .delete(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");

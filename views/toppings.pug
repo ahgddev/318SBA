@@ -1,17 +1,24 @@
 extends default 
 
 block productContent
-    h1 Toppings : #{order}
+    h1 Toppings
     select#productFilter(name='Order Filter')
      option(value='alpha') Alphabetical
      option(value='ascending') Price: High to Low
      option(value='descending') Price: Low to High
 
+    button Add Topping
+
     #productTable 
-    each product in productData 
-        .productItem
-         h2 Name #{product.name}
-          p ID #{product.topping_id} 
-          p Type #{product.type}
-          p Serving Size #{product.serving_size}
-          p Price per Serving #{product.price_per_serving}
+    if baseURL
+        p Welcome to the toppings section
+    else
+        each product in productData 
+            .productItem
+            h2 Name #{product.name}
+            p ID #{product.topping_id} 
+            p Type #{product.type}
+            p Serving Size #{product.serving_size}
+            p Price per Serving #{product.price_per_serving}
+            button Edit
+            button Delete
