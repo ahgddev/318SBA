@@ -58,6 +58,35 @@ router.route("/search").get(async (req, res) => {
   res.send(foundTopping).status(200);
 });
 
+//Sort toppings
+//GET: Sort toppings based on certain parameters
+router.route("/filter").get(async (req, res) => {
+  let allToppingsData = await toppingDB.collection("Ingredients");
+  const query = {};
+  //filter toppings based on query given
+  let searchData = req.query.q
+  console.log(searchData)
+  //Out of stock?
+  //Last Modified?
+  switch (searchData) {
+  //High Price to Low Price
+    case "ascending":
+      let orderedToppingsASC = await allToppingsData.find(query).sort({ price_per_serving: -1 }).toArray();
+      res.send(orderedToppingsASC).status(200);
+      break;
+  //Low price to high price
+    case "descending":
+      let orderedToppingsDES = await allToppingsData.find(query).sort({ price_per_serving: 1 }).toArray();
+      res.send(orderedToppingsDES).status(200);
+      break;
+  //Alphabetical order
+    case "alphabetical":
+      let orderedToppingsALPHA = await allToppingsData.find(query).sort({ name: 1 }).toArray();
+      res.send(orderedToppingsALPHA).status(200);
+      break;
+  }
+});
+
 //Get a topping with a specific ID
 // DELETE: Delete a single Topping
 // PATCH: Update a single Topping
