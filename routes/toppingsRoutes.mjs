@@ -8,7 +8,6 @@
 
 import toppingDB from "../data/database.mjs";
 import express from "express";
-import { ObjectId } from "mongodb";
 const router = express.Router();
 
 
@@ -18,7 +17,8 @@ const router = express.Router();
 router
   .route("/")
   .get(async (req, res) => {
-    res.sendFile("pages/toppingsManager.html", { root: "." });
+    // res.sendFile("pages/toppingsManager.html", { root: "." });
+    res.render("toppings.pug", { root: "." });
     let allToppingsData = await toppingDB.collection("Ingredients");
     let foundToppings = await allToppingsData.find({}).toArray();
     res.send(foundToppings).status(200);
