@@ -2,12 +2,16 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import toppingRoutes from "./routes/toppingsRoutes.mjs";
+import path from "path";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(path.join(".", 'src')));
+app.set('views', './views');
+app.set('view engine', 'pug');
 
 // Manage Toppings
 // Utilize route parameters, where appropriate.
@@ -33,6 +37,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //Create and use at least two pieces of custom middleware.
 //Create and use error-handling middleware.
+
+
+
 
 
 //Utilize reasonable data structuring practices.
