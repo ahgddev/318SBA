@@ -1,5 +1,10 @@
 extends default 
 
 block productContent
-    p I'm loaded! I'm the toppings section.
+    h1 Toppings : #{order}
+    select#productFilter(name='Order Filter')
+     option(value='alpha') Alphabetical
+     option(value='ascending') Ascending
+     option(value='descending') Descending
+
     #{productTable}
