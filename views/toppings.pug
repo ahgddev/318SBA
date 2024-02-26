@@ -1,5 +1,14 @@
 extends default 
-
+block formContent
+  form(method='POST', action='http://localhost:3000/toppings/')
+    h1 Add a new Topping
+    input(type='text', placeholder='name', name='name')
+    select(placeholder='Type', name='type')
+      option(value='vegetable') Vegetable
+      option(value='meat') Meat
+    input(type='text', placeholder='Serving Size', name='serving_size')
+    input(type='number', placeholder='Price Per Serving', name='price_per_serving')
+    button(type="submit") Submit
 block productContent
     h1 Toppings
 

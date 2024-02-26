@@ -28,13 +28,13 @@ router
     if (lastTopping[0].name == req.body.name) {
       throw new Error("This topping already exists");
     }
-    console.log(lastTopping);
+
     let newTopping = {
       topping_id: lastTopping[0].topping_id + 1,
       name: req.body.name,
       type: req.body.type,
       serving_size: req.body.serving_size,
-      price_per_serving: req.body.price_per_serving,
+      price_per_serving: Number(req.body.price_per_serving),
     };
     allToppingsData.insertOne(newTopping);
 
