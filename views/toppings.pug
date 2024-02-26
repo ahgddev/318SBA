@@ -6,15 +6,15 @@ block scripts
 block formContent
   head
     link(rel='stylesheet', href='/toppingFormContent.css')
-  form#newToppingForm(method='POST', action='http://localhost:3000/toppings/')
-    h1 Add a new Topping
-    input(type='text', placeholder='name', name='name')
-    select(placeholder='Type', name='type')
-      option(value='vegetable') Vegetable
-      option(value='meat') Meat
-    input(type='text', placeholder='Serving Size', name='serving_size')
-    input(type='number', placeholder='Price Per Serving', name='price_per_serving')
-    button(type="submit") Submit
+//-   form#newToppingForm(method='POST', action='http://localhost:3000/toppings/')
+//-     h1 Add a new Topping
+//-     input(type='text', placeholder='name', name='name')
+//-     select(placeholder='Type', name='type')
+//-       option(value='vegetable') Vegetable
+//-       option(value='meat') Meat
+//-     input(type='text', placeholder='Serving Size', name='serving_size')
+//-     input(type='number', placeholder='Price Per Serving', name='price_per_serving')
+//-     button(type="submit") Submit
 
 block productContent
     h1 Toppings
@@ -25,7 +25,7 @@ block productContent
             option(value='alphabetical') Alphabetical
             option(value='ascending') Price: High to Low
             option(value='descending') Price: Low to High
-    button Add Topping
+    button(onclick="makeNewToppingForm()") Add Topping
 
     #productTable 
     if baseURL
@@ -42,17 +42,5 @@ block productContent
             form#deleteForm(method='POST', action="http://localhost:3000/toppings/"+product.topping_id+"?_method=delete&id="+product.topping_id)
                 <input type="hidden" name="_method" value="delete"/>
                 button(name="id" value=product.topping_id onclick="this.form.submit()") Delete
-
-            //- form#updateForm(method='POST', action="http://localhost:3000/toppings/"+product.topping_id+"?_method=patch&id="+product.topping_id)
-            //-     <input type="hidden" name="_method" value="patch"/>
-            //-     h1 Update #{product.name}
-            //-     input(type='text', placeholder=product.name, name='name')
-            //-     select(placeholder='Type', name='type')
-            //-      option(value='vegetable') Vegetable
-            //-      option(value='meat') Meat
-            //-     input(type='text', placeholder=product.serving_size, name='serving_size')
-            //-     input(type='number', placeholder=product.price_per_serving, name='price_per_serving')
-            //-     button(name="id" value=product.topping_id onclick="this.form.submit()") Submit
-                
     
             

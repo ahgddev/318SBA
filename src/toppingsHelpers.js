@@ -67,7 +67,62 @@ function makeUpdateForm(data) {
   document.getElementsByTagName("main")[0].append(updateForm);
 }
 
-function slideIn(form){
-    form.classList.add("side_slide_in");
-    form.style.left = "0px";
+function makeNewToppingForm() {
+  let newToppingForm = document.createElement("form");
+  Object.assign(newToppingForm, {
+    method: "POST",
+    action: "http://localhost:3000/toppings/",
+  });
+  newToppingForm.setAttribute("id", "newToppingForm");
+  let newTitle = document.createElement("h1");
+  newTitle.innerHTML = "Make a new Topping";
+  let newName = document.createElement("input");
+  Object.assign(newName, {
+    type: "text",
+    placeholder: "Topping name",
+    name: "name",
+  });
+  let newSelect = document.createElement("select");
+  Object.assign(newSelect, {
+    placeholder: "Type",
+    name: "type",
+  });
+  let selectOptions = ["vegetable", "meat"];
+  for (optionItem of selectOptions) {
+    var option = document.createElement("option");
+    option.value = optionItem;
+    option.text = optionItem;
+    newSelect.appendChild(option);
+  }
+  let newServingSize = document.createElement("input");
+  Object.assign(newServingSize, {
+    placeholder: "Serving Size",
+    name: "serving_size",
+  });
+  let newPrice = document.createElement("input");
+  newPrice.type = "number";
+  Object.assign(newPrice, {
+    placeholder: "Price per serving",
+    name: "price_per_serving",
+  });
+  let submitButton = document.createElement("button");
+  Object.assign(submitButton, {
+    type: "submit",
+    textContent: "Submit",
+  });
+
+  newToppingForm.append(
+    newTitle,
+    newName,
+    newSelect,
+    newServingSize,
+    newPrice,
+    submitButton
+  );
+  document.getElementsByTagName("main")[0].append(newToppingForm);
+}
+
+function slideIn(form) {
+  form.classList.add("side_slide_in");
+  form.style.left = "0px";
 }
