@@ -32,7 +32,7 @@ block productContent
             p Serving Size #{product.serving_size}
             p Price per Serving #{product.price_per_serving}
             button Edit
-            form(method='POST', action="http://localhost:3000/toppings/"+product.topping_id+"?_method=patch&id="+product.topping_id)
+            form#updateForm(method='POST', action="http://localhost:3000/toppings/"+product.topping_id+"?_method=patch&id="+product.topping_id)
                 <input type="hidden" name="_method" value="patch"/>
                 h1 Update #{product.name}
                 input(type='text', placeholder=product.name, name='name')
@@ -43,6 +43,6 @@ block productContent
                 input(type='number', placeholder=product.price_per_serving, name='price_per_serving')
                 button(name="id" value=product.topping_id onclick="this.form.submit()") Submit
                 
-            form(method='POST', action="http://localhost:3000/toppings/"+product.topping_id+"?_method=delete&id="+product.topping_id)
+            form#deleteForm(method='POST', action="http://localhost:3000/toppings/"+product.topping_id+"?_method=delete&id="+product.topping_id)
                 <input type="hidden" name="_method" value="delete"/>
                 button(name="id" value=product.topping_id onclick="this.form.submit()") Delete
