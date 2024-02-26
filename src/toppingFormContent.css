@@ -1,0 +1,45 @@
+#newToppingForm {
+    background-color: blueviolet;
+    width: 30%;
+    padding: 1%;
+    border-radius: 6px;
+    display: flex;
+    flex-flow: column nowrap;  
+}
+
+#newToppingForm * {
+    border-radius: 3px;
+    margin-top: 2%;
+}
+
+#newToppingForm h1 {
+    text-align: center;
+}
+
+#updateForm {
+    background-color: blueviolet;
+    width: 30%;
+    padding: 1%;
+    border-radius: 6px;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#updateForm * {
+    border-radius: 3px;
+    margin-top: 2%;
+}
+
+#updateForm h1 {
+    text-align: center;
+}
+
+/* Hide and Unhide Forms */
+
+.side_slide_out {
+  transition: top 0.5s ease-out;
+}
+
+.side_slide_in {
+  transition: top 0.5s ease-in;
+}
