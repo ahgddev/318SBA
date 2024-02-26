@@ -10,22 +10,22 @@ header
   h1 Pizza Manager
 main
   nav#sideBar
-    img(src='', alt='user_image')
+    img(src='/iconmonstr-cook-3-96.png', alt='user_image')
     p#userHello
       | Hello 
-      em USERNAME
+      em Chef
     p#userTitle Manager
     ul
       li
         a(href='pizzasManager.html') Pizza Manager
       li
-        a(href='toppingsManager.html') Toppings Manager
-  section
+        a(href='http://localhost:3000/toppings/') Toppings Manager
+  section#productSection
     #searchContainer
       form(action=`http://localhost:3000/${managerT}/search`, method="GET") 
-        input#searchBar(type='search', name='name')
+        input#searchBar(type='search', name='name', placeholder="Search products")
         button(type='submit')
-          img(src='', alt='search_icon')
+          img(src='/iconmonstr-magnifier-lined-24.png', alt='search_icon')
     #productList
       block productContent
   section
