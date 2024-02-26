@@ -15,7 +15,7 @@ const router = express.Router();
 router
   .route("/")
   .get(async (req, res) => {
-    res.render("toppings.pug", { baseURL: true, managerType: "toppings" });
+    res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "Welcome to the toppings section" });
   })
   .post(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
@@ -37,14 +37,18 @@ router
     };
     allToppingsData.insertOne(newTopping);
 
-    res.send("Topping added!").status(201);
+    if(res.statusCode == 200 || res.statusCode == 201){
+      res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "New topping added"});
+    } else {
+      res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+    }
   });
 
 // Get all Toppings
 // GET: Get all toppings. A specific route to get all of them will be useful.
 router.route("/all").get(async (req, res) => {
   let allToppingsData = await toppingDB.collection("Ingredients");
-  let foundToppings = await allToppingsData.find({}).toArray();
+  let foundToppings = await allToppingsData.find({}).sort({ topping_id: 1 }).toArray();
   res.render("toppings.pug", {
     productData: foundToppings,
     managerType: "toppings",
@@ -131,7 +135,11 @@ router
     let searchData = { topping_id: Number(req.params.id) };
     await allToppingsData.deleteOne(searchData);
 
-    res.send("Topping deleted").status(204);
+    if(res.statusCode == 200 || res.statusCode == 201 || res.statusCode == 204){
+      res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "Topping deleted"});
+    } else {
+      res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+    }
   })
   .patch(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");

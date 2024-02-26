@@ -8,21 +8,15 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+//Middleware
 app.use(methodOverride("_method"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(".", "src")));
+
+//Views
 app.set("views", "./views");
 app.set("view engine", "pug");
-
-// Manage Toppings
-// Utilize route parameters, where appropriate.
-// As a pizza store owner I should be able to manage toppings available for my pizza chefs.
-
-// It should allow me to see a list of available toppings
-// It should allow me to add a new topping
-// It should allow me to delete an existing topping
-// It should allow me to update an existing topping
 
 // Manage Pizzas
 // Utilize route parameters, where appropriate.
@@ -34,7 +28,6 @@ app.set("view engine", "pug");
 // It should allow me to update an existing pizza
 // It should allow me to update toppings on an existing pizza
 
-//Create and use at least two pieces of custom middleware.
 //Create and use error-handling middleware.
 
 //Utilize reasonable data structuring practices.
