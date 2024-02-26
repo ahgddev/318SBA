@@ -32,4 +32,6 @@ block productContent
             p Serving Size #{product.serving_size}
             p Price per Serving #{product.price_per_serving}
             button Edit
-            button Delete
+            form(method='POST', action="http://localhost:3000/toppings/"+product.topping_id+"?_method=delete&id="+product.topping_id)
+                <input type="hidden" name="_method" value="delete"/>
+                button(name="id" value=product.topping_id onclick="this.form.submit()") Delete

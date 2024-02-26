@@ -15,7 +15,6 @@ const router = express.Router();
 router
   .route("/")
   .get(async (req, res) => {
-    // res.sendFile("pages/toppingsManager.html", { root: "." });
     res.render("toppings.pug", { baseURL: true, managerType: "toppings"});
   })
   .post(async (req, res) => {
@@ -110,6 +109,7 @@ router
   })
   .delete(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
+    console.log(req.params.id)
     let searchData = { topping_id: Number(req.params.id) };
     await allToppingsData.deleteOne(searchData);
 

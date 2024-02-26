@@ -3,10 +3,11 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import toppingRoutes from "./routes/toppingsRoutes.mjs";
 import path from "path";
+import methodOverride from 'method-override';
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+app.use(methodOverride('_method'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(".", "src")));
