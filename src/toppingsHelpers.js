@@ -64,5 +64,10 @@ function makeUpdateForm(data) {
     updatePrice,
     submitButton
   );
-  document.body.appendChild(updateForm);
+  document.getElementsByTagName("main")[0].append(updateForm);
+}
+
+function slideIn(form){
+    form.classList.add("side_slide_in");
+    form.style.left = "0px";
 }

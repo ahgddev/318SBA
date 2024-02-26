@@ -20,6 +20,9 @@
     background-color: blueviolet;
     width: 30%;
     padding: 1%;
+    top: 50%;
+    left: 40%;
+    position: fixed;
     border-radius: 6px;
     display: flex;
     flex-flow: column nowrap;
