@@ -21,7 +21,7 @@ app.set("view engine", "pug");
 
 //Create and use error-handling middleware.
 
-
+app.use("/toppings", toppingRoutes);
 app.use("/pizzas", pizzasRoutes);
 
 app.listen(PORT, () => {
