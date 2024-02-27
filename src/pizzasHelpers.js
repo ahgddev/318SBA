@@ -1,5 +1,4 @@
-
-function makeUpdateForm(pizzaData,toppingData) {
+function makeUpdateForm(pizzaData, toppingData) {
   let updateForm = document.createElement("form");
   Object.assign(updateForm, {
     method: "POST",
@@ -30,11 +29,10 @@ function makeUpdateForm(pizzaData,toppingData) {
   let selectOptions = toppingData;
   for (optionItem of selectOptions) {
     let option = document.createElement("input");
-    option.type = 'checkbox';
-    // option.name = optionItem.name;
-    option.value = optionItem.name;
+    option.type = "checkbox";
+    option.name = optionItem.name;
     option.id = optionItem.name;
-    var label = document.createElement('label')
+    var label = document.createElement("label");
     label.htmlFor = "id";
     label.appendChild(document.createTextNode(optionItem.name));
     toppingSelect.appendChild(label);
