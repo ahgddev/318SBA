@@ -100,11 +100,10 @@ router.route("/all").get(async (req, res) => {
 //GET: Get a pizza based on search parameters
 router.route("/search").get(async (req, res) => {
   let allPizzasData = await pizzaDB.collection("Menu");
-  let searchData = { name: req.query.name };
-  let foundPizza = await allPizzasData.findOne(searchData);
-  let convertPizza = [foundPizza];
+  let searchData = req.query.name ;
+  let foundPizza = await allPizzasData.find({name: { $regex: new RegExp(searchData, 'i')}}).toArray();
   res.render("pizzas.pug", {
-    productData: convertPizza,
+    productData: foundPizza,
     toppingData: toppingNames,
     managerType: "pizzas",
   });

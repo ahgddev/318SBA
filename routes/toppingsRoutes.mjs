@@ -79,11 +79,10 @@ router.route("/all").get(async (req, res) => {
 //GET: Get a topping based on search parameters
 router.route("/search").get(async (req, res) => {
   let allToppingsData = await toppingDB.collection("Ingredients");
-  let searchData = { name: req.query.name };
-  let foundTopping = await allToppingsData.findOne(searchData);
-  let convertTopping = [foundTopping];
+  let searchData = req.query.name;
+  let foundTopping = await allToppingsData.find({name: { $regex: new RegExp(searchData, 'i')}}).toArray();
   res.render("toppings.pug", {
-    productData: convertTopping,
+    productData: foundTopping,
     managerType: "toppings",
   });
 });

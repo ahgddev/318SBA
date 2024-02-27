@@ -19,10 +19,19 @@ app.use(express.static(path.join(".", "src")));
 app.set("views", "./views");
 app.set("view engine", "pug");
 
-//Create and use error-handling middleware.
+//Error-handling middleware.
+const errorHandler = (err, req, res, next) => {
+  res.status(500).json({ error: 'Internal Server Error' });
+};
 
-app.use("/toppings", toppingRoutes);
-app.use("/pizzas", pizzasRoutes);
+
+try {
+  app.use("/toppings", toppingRoutes);
+  app.use("/pizzas", pizzasRoutes);
+
+} catch (error) {
+  app.use(errorHandler())
+}
 
 app.listen(PORT, () => {
   console.log("Listening....");
