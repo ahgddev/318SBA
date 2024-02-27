@@ -5,7 +5,7 @@
 //Create PATCH or PUT routes for data, as appropriate. At least one data category should allow for client manipulation via a PATCH or PUT request.
 //Create DELETE routes for data, as appropriate. At least one data category should allow for client deletion via a DELETE request.
 
-import toppingDB from "../data/database.mjs";
+import toppingDB from "../data/toppingDatabase.mjs";
 import express from "express";
 const router = express.Router();
 
@@ -14,12 +14,13 @@ const router = express.Router();
 // POST: Make a new topping. You cannot add duplicate toppings.
 router
   .route("/")
-  .get(async (req, res) => {
-    if(res.statusCode == 200 || res.statusCode == 201){
+  .get(async (req, res, next) => {
+    try {
       res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "Welcome to the toppings section"});
-    } else {
-      res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+    } catch (error) {
+      res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode}); 
     }
+    next()
   })
   .post(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
@@ -78,8 +79,6 @@ router.route("/filter").get(async (req, res) => {
   let allToppingsData = await toppingDB.collection("Ingredients");
   //filter toppings based on query given
   let searchData = req.query.q;
-  //Out of stock?
-  //Last Modified?
   switch (searchData) {
     //High Price to Low Price
     case "ascending":
@@ -127,12 +126,12 @@ router
     let searchData = { topping_id: Number(req.params.id) };
     let foundTopping = await allToppingsData.findOne(searchData);
     let convertTopping = [foundTopping];
-    if(res.statusCode == 200 || res.statusCode == 201 || res.statusCode == 204){
+    try {
       res.render("toppings.pug", {
         productData: convertTopping,
         managerType: "toppings",
       });
-    } else {
+    } catch (error) {
       res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
     }
     

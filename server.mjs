@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import toppingRoutes from "./routes/toppingsRoutes.mjs";
+import pizzasRoutes from "./routes/pizzasRoutes.mjs";
 import path from "path";
 import methodOverride from "method-override";
 dotenv.config();
@@ -36,7 +37,7 @@ app.set("view engine", "pug");
 // Adhere to the guiding principles of REST.
 // Utilize reasonable code organization practices.
 app.use("/toppings", toppingRoutes);
-
+app.use("/pizzas", pizzasRoutes);
 
 app.listen(PORT, () => {
   console.log("Listening....");
