@@ -43,6 +43,7 @@ function makeUpdateForm(pizzaData, toppingData) {
   Object.assign(updateWholePrice, {
     placeholder: pizzaData.whole_price,
     name: "whole_price",
+    step: ".01",
     required: true,
   });
   let updateSlicePrice = document.createElement("input");
@@ -50,6 +51,7 @@ function makeUpdateForm(pizzaData, toppingData) {
   Object.assign(updateSlicePrice, {
     placeholder: pizzaData.slice_price,
     name: "slice_price",
+    step: ".01",
     required: true,
   });
   let submitButton = document.createElement("button");
@@ -112,6 +114,7 @@ function makeNewPizzaForm(toppingData) {
   Object.assign(newWholePrice, {
     placeholder: "Whole Pizza Price",
     name: "whole_price",
+    step: ".01",
     required: true,
   });
   let newSlicePrice = document.createElement("input");
@@ -119,6 +122,7 @@ function makeNewPizzaForm(toppingData) {
   Object.assign(newSlicePrice, {
     placeholder: "Single Slice Price",
     name: "slice_price",
+    step: ".01",
     required: true,
   });
   let submitButton = document.createElement("button");

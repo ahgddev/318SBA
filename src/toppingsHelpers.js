@@ -51,6 +51,7 @@ function makeUpdateForm(data) {
   Object.assign(updatePrice, {
     placeholder: data.price_per_serving,
     name: "price_per_serving",
+    step: ".01",
     required: true,
   });
   let submitButton = document.createElement("button");
@@ -119,6 +120,7 @@ function makeNewToppingForm() {
   Object.assign(newPrice, {
     placeholder: "Price per serving",
     name: "price_per_serving",
+    step: ".01",
     required: true,
   });
   let submitButton = document.createElement("button");
