@@ -15,7 +15,11 @@ const router = express.Router();
 router
   .route("/")
   .get(async (req, res) => {
-    res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "Welcome to the toppings section" });
+    if(res.statusCode == 200 || res.statusCode == 201){
+      res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "Welcome to the toppings section"});
+    } else {
+      res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+    }
   })
   .post(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
@@ -40,7 +44,7 @@ router
     if(res.statusCode == 200 || res.statusCode == 201){
       res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "New topping added"});
     } else {
-      res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+      res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
     }
   });
 
@@ -72,7 +76,6 @@ router.route("/search").get(async (req, res) => {
 //GET: Sort toppings based on certain parameters
 router.route("/filter").get(async (req, res) => {
   let allToppingsData = await toppingDB.collection("Ingredients");
-  const query = {};
   //filter toppings based on query given
   let searchData = req.query.q;
   //Out of stock?
@@ -81,7 +84,7 @@ router.route("/filter").get(async (req, res) => {
     //High Price to Low Price
     case "ascending":
       let orderedToppingsASC = await allToppingsData
-        .find(query)
+        .find({})
         .sort({ price_per_serving: -1 })
         .toArray();
       res.render("toppings.pug", {
@@ -92,7 +95,7 @@ router.route("/filter").get(async (req, res) => {
     //Low price to high price
     case "descending":
       let orderedToppingsDES = await allToppingsData
-        .find(query)
+        .find({})
         .sort({ price_per_serving: 1 })
         .toArray();
       res.render("toppings.pug", {
@@ -103,7 +106,7 @@ router.route("/filter").get(async (req, res) => {
     //Alphabetical order
     case "alphabetical":
       let orderedToppingsALPHA = await allToppingsData
-        .find(query)
+        .find({})
         .sort({ name: 1 })
         .toArray();
       res.render("toppings.pug", {
@@ -124,10 +127,15 @@ router
     let searchData = { topping_id: Number(req.params.id) };
     let foundTopping = await allToppingsData.findOne(searchData);
     let convertTopping = [foundTopping];
-    res.render("toppings.pug", {
-      productData: convertTopping,
-      managerType: "toppings",
-    });
+    if(res.statusCode == 200 || res.statusCode == 201 || res.statusCode == 204){
+      res.render("toppings.pug", {
+        productData: convertTopping,
+        managerType: "toppings",
+      });
+    } else {
+      res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+    }
+    
   })
   .delete(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
@@ -138,7 +146,7 @@ router
     if(res.statusCode == 200 || res.statusCode == 201 || res.statusCode == 204){
       res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "Topping deleted"});
     } else {
-      res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+      res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
     }
   })
   .patch(async (req, res) => {

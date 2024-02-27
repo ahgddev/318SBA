@@ -25,11 +25,13 @@ function makeUpdateForm(data) {
     type: "text",
     placeholder: data.name,
     name: "name",
+    required: true,
   });
   let updateSelect = document.createElement("select");
   Object.assign(updateSelect, {
     placeholder: "Type",
     name: "type",
+    required: true,
   });
   let selectOptions = ["vegetable", "meat"];
   for (optionItem of selectOptions) {
@@ -42,12 +44,14 @@ function makeUpdateForm(data) {
   Object.assign(updateServingSize, {
     placeholder: "Serving Size",
     name: "serving_size",
+    required: true,
   });
   let updatePrice = document.createElement("input");
   updatePrice.type = "number";
   Object.assign(updatePrice, {
     placeholder: data.price_per_serving,
     name: "price_per_serving",
+    required: true,
   });
   let submitButton = document.createElement("button");
   Object.assign(submitButton, {
@@ -56,13 +60,21 @@ function makeUpdateForm(data) {
     onclick: "this.form.submit()",
     textContent: "Submit",
   });
+  let cancelButton = document.createElement("button");
+  Object.assign(cancelButton, {
+    textContent: "Cancel",
+  });
+  cancelButton.onclick = () => {
+    updateForm.remove();
+  };
   updateForm.append(
     updateTitle,
     updateName,
     updateSelect,
     updateServingSize,
     updatePrice,
-    submitButton
+    submitButton,
+    cancelButton
   );
   document.getElementsByTagName("main")[0].append(updateForm);
 }
@@ -81,11 +93,13 @@ function makeNewToppingForm() {
     type: "text",
     placeholder: "Topping name",
     name: "name",
+    required: true,
   });
   let newSelect = document.createElement("select");
   Object.assign(newSelect, {
     placeholder: "Type",
     name: "type",
+    required: true,
   });
   let selectOptions = ["vegetable", "meat"];
   for (optionItem of selectOptions) {
@@ -98,31 +112,35 @@ function makeNewToppingForm() {
   Object.assign(newServingSize, {
     placeholder: "Serving Size",
     name: "serving_size",
+    required: true,
   });
   let newPrice = document.createElement("input");
   newPrice.type = "number";
   Object.assign(newPrice, {
     placeholder: "Price per serving",
     name: "price_per_serving",
+    required: true,
   });
   let submitButton = document.createElement("button");
   Object.assign(submitButton, {
     type: "submit",
     textContent: "Submit",
   });
-
+  let cancelButton = document.createElement("button");
+  Object.assign(cancelButton, {
+    textContent: "Cancel",
+  });
+  cancelButton.onclick = () => {
+    newToppingForm.remove();
+  };
   newToppingForm.append(
     newTitle,
     newName,
     newSelect,
     newServingSize,
     newPrice,
-    submitButton
+    submitButton,
+    cancelButton
   );
   document.getElementsByTagName("main")[0].append(newToppingForm);
-}
-
-function slideIn(form) {
-  form.classList.add("side_slide_in");
-  form.style.left = "0px";
 }

@@ -23,7 +23,7 @@ main
   section#productSection
     #searchContainer
       form(action=`http://localhost:3000/${managerT}/search`, method="GET") 
-        input#searchBar(type='search', name='name', placeholder="Search products")
+        input#searchBar(type='search', name='name', placeholder=`Search ${managerT}`)
         button(type='submit')
           img(src='/iconmonstr-magnifier-lined-24.png', alt='search_icon')
     #productList

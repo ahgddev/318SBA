@@ -91,13 +91,3 @@
     
     display: inline-block;
 }
-
-/* Hide and Unhide Forms */
-
-.side_slide_out {
-  transition: top 0.5s ease-out;
-}
-
-.side_slide_in {
-  transition: top 0.5s ease-in;
-}
