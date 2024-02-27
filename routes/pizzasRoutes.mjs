@@ -20,6 +20,17 @@ const router = express.Router();
 let allToppingsData = await toppingDB.collection("Ingredients");
 let toppingNames = await allToppingsData.find({}).project({name:1,_id:0}).toArray();
 
+//Middleware function that puts all of the toppings in an array to send to the database.
+function addIngredients(req, res, next) {
+  let toppingArray = []
+  for (let [key, value] of Object.entries(req.body)) {
+    if (value == "on"){
+      toppingArray.push(key);
+    }
+  }
+  req.body.ingredients = toppingArray
+}
+
 // Base route, get all pizzas by default
 // GET: Get all pizzas.
 // POST: Make a new pizza. You cannot add duplicate pizzas.
@@ -162,6 +173,8 @@ router
   })
   .patch(async (req, res) => {
     let allPizzasData = await pizzaDB.collection("Menu");
+    // console.log(req.body)
+    addIngredients(req);
     let updateResult = await allPizzasData.updateOne(
       { pizza_id: Number(req.params.id) },
       {
