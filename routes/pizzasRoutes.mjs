@@ -64,7 +64,6 @@ router
 router.route("/all").get(async (req, res) => {
   let allPizzasData = await pizzaDB.collection("Menu");
   let foundPizzas = await allPizzasData.find({}).sort({ pizza_id: 1 }).toArray();
-  console.log(foundPizzas)
   res.render("pizzas.pug", {
     productData: foundPizzas, toppingData: toppingNames,
     managerType: "pizzas"
@@ -163,7 +162,6 @@ router
   })
   .patch(async (req, res) => {
     let allPizzasData = await pizzaDB.collection("Menu");
-    console.log(req.body)
     let updateResult = await allPizzasData.updateOne(
       { pizza_id: Number(req.params.id) },
       {
