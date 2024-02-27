@@ -6,13 +6,6 @@
 //Create DELETE routes for data, as appropriate. At least one data category should allow for client deletion via a DELETE request.
 
 // As a pizza chef I should be able to create new pizza master pieces
-
-// It should allow me to see a list of existing pizzas and their pizzas
-// It should allow me to create a new pizza and add pizzas to it
-// It should allow me to delete an existing pizza
-// It should allow me to update an existing pizza
-// It should allow me to update pizzas on an existing pizza
-
 import pizzaDB from "../data/pizzaDatabase.mjs";
 import toppingDB from "../data/toppingDatabase.mjs";
 import express from "express";
@@ -30,6 +23,7 @@ function addIngredients(req, res, next) {
   }
   req.body.ingredients = toppingArray
 }
+
 
 // Base route, get all pizzas by default
 // GET: Get all pizzas.
