@@ -16,11 +16,17 @@ router
   .route("/")
   .get(async (req, res, next) => {
     try {
-      res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "Welcome to the toppings section"});
+      res.render("toppings.pug", {
+        baseURL: true,
+        managerType: "toppings",
+        messageAlert: "Welcome to the toppings section",
+      });
     } catch (error) {
-      res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode}); 
+      res.render("404.pug", {
+        messageAlert: "Something went wrong...Error Code: " + res.statusCode,
+      });
     }
-    next()
+    next();
   })
   .post(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
@@ -42,10 +48,16 @@ router
     };
     allToppingsData.insertOne(newTopping);
 
-    if(res.statusCode == 200 || res.statusCode == 201){
-      res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "New topping added"});
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      res.render("toppings.pug", {
+        baseURL: true,
+        managerType: "toppings",
+        messageAlert: "New topping added",
+      });
     } else {
-      res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+      res.render("404.pug", {
+        messageAlert: "Something went wrong...Error Code: " + res.statusCode,
+      });
     }
   });
 
@@ -53,7 +65,10 @@ router
 // GET: Get all toppings. A specific route to get all of them will be useful.
 router.route("/all").get(async (req, res) => {
   let allToppingsData = await toppingDB.collection("Ingredients");
-  let foundToppings = await allToppingsData.find({}).sort({ topping_id: 1 }).toArray();
+  let foundToppings = await allToppingsData
+    .find({})
+    .sort({ topping_id: 1 })
+    .toArray();
   res.render("toppings.pug", {
     productData: foundToppings,
     managerType: "toppings",
@@ -132,9 +147,10 @@ router
         managerType: "toppings",
       });
     } catch (error) {
-      res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+      res.render("404.pug", {
+        messageAlert: "Something went wrong...Error Code: " + res.statusCode,
+      });
     }
-    
   })
   .delete(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
@@ -142,10 +158,20 @@ router
     let searchData = { topping_id: Number(req.params.id) };
     await allToppingsData.deleteOne(searchData);
 
-    if(res.statusCode == 200 || res.statusCode == 201 || res.statusCode == 204){
-      res.render("toppings.pug", { baseURL: true, managerType: "toppings", messageAlert: "Topping deleted"});
+    if (
+      res.statusCode == 200 ||
+      res.statusCode == 201 ||
+      res.statusCode == 204
+    ) {
+      res.render("toppings.pug", {
+        baseURL: true,
+        managerType: "toppings",
+        messageAlert: "Topping deleted",
+      });
     } else {
-      res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+      res.render("404.pug", {
+        messageAlert: "Something went wrong...Error Code: " + res.statusCode,
+      });
     }
   })
   .patch(async (req, res) => {

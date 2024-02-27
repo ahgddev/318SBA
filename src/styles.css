@@ -1,32 +1,32 @@
 body {
-    background-color: rgb(189, 228, 199);
+  background-color: rgb(189, 228, 199);
 }
 
 main {
-    display: flex;
-    flex-flow: row nowrap;
+  display: flex;
+  flex-flow: row nowrap;
 }
 
 #sideBar {
-    width: 20%;
-    padding: 1%;
-    border-left: solid 3px rgb(104, 9, 9);
-    border-right: solid 3px rgb(104, 9, 9);
-    text-align: center;
+  width: 20%;
+  padding: 1%;
+  border-left: solid 3px rgb(104, 9, 9);
+  border-right: solid 3px rgb(104, 9, 9);
+  text-align: center;
 }
 
 #sideBar ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 #searchContainer form {
-    padding: 1%;
-    display: flex;
-    flex-flow: row nowrap;
-    align-content: center;
+  padding: 1%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
 }
 
 #searchBar {
-    line-height: 1.4em;  
+  line-height: 1.4em;
 }

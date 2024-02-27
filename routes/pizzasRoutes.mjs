@@ -11,19 +11,21 @@ import toppingDB from "../data/toppingDatabase.mjs";
 import express from "express";
 const router = express.Router();
 let allToppingsData = await toppingDB.collection("Ingredients");
-let toppingNames = await allToppingsData.find({}).project({name:1,_id:0}).toArray();
+let toppingNames = await allToppingsData
+  .find({})
+  .project({ name: 1, _id: 0 })
+  .toArray();
 
 //Middleware function that puts all of the toppings in an array to send to the database.
 function addIngredients(req, res, next) {
-  let toppingArray = []
+  let toppingArray = [];
   for (let [key, value] of Object.entries(req.body)) {
-    if (value == "on"){
+    if (value == "on") {
       toppingArray.push(key);
     }
   }
-  req.body.ingredients = toppingArray
+  req.body.ingredients = toppingArray;
 }
-
 
 // Base route, get all pizzas by default
 // GET: Get all pizzas.
@@ -31,10 +33,17 @@ function addIngredients(req, res, next) {
 router
   .route("/")
   .get(async (req, res) => {
-    if(res.statusCode == 200 || res.statusCode == 201){
-      res.render("pizzas.pug", { baseURL: true, managerType: "pizzas", toppingData: toppingNames, messageAlert: "Welcome to the pizzas section"});
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      res.render("pizzas.pug", {
+        baseURL: true,
+        managerType: "pizzas",
+        toppingData: toppingNames,
+        messageAlert: "Welcome to the pizzas section",
+      });
     } else {
-      res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+      res.render("404.pug", {
+        messageAlert: "Something went wrong...Error Code: " + res.statusCode,
+      });
     }
   })
   .post(async (req, res) => {
@@ -45,7 +54,9 @@ router
       .limit(1)
       .toArray();
     if (lastPizza[0].name == req.body.name) {
-      res.render("404.pug", { messageAlert: "This pizza already exists. Error: " + res.statusCode})
+      res.render("404.pug", {
+        messageAlert: "This pizza already exists. Error: " + res.statusCode,
+      });
     }
     addIngredients(req);
     let newPizza = {
@@ -53,14 +64,20 @@ router
       name: req.body.name,
       ingredients: req.body.ingredients,
       whole_price: Number(req.body.whole_price),
-      slice_price: Number(req.body.slice_price)
+      slice_price: Number(req.body.slice_price),
     };
     allPizzasData.insertOne(newPizza);
 
-    if(res.statusCode == 200 || res.statusCode == 201){
-      res.render("pizzas.pug", { baseURL: true, managerType: "pizzas", messageAlert: "New pizza added"});
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      res.render("pizzas.pug", {
+        baseURL: true,
+        managerType: "pizzas",
+        messageAlert: "New pizza added",
+      });
     } else {
-      res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+      res.render("404.pug", {
+        messageAlert: "Something went wrong...Error Code: " + res.statusCode,
+      });
     }
   });
 
@@ -68,10 +85,14 @@ router
 // GET: Get all pizzas. A specific route to get all of them will be useful.
 router.route("/all").get(async (req, res) => {
   let allPizzasData = await pizzaDB.collection("Menu");
-  let foundPizzas = await allPizzasData.find({}).sort({ pizza_id: 1 }).toArray();
+  let foundPizzas = await allPizzasData
+    .find({})
+    .sort({ pizza_id: 1 })
+    .toArray();
   res.render("pizzas.pug", {
-    productData: foundPizzas, toppingData: toppingNames,
-    managerType: "pizzas"
+    productData: foundPizzas,
+    toppingData: toppingNames,
+    managerType: "pizzas",
   });
 });
 
@@ -83,8 +104,9 @@ router.route("/search").get(async (req, res) => {
   let foundPizza = await allPizzasData.findOne(searchData);
   let convertPizza = [foundPizza];
   res.render("pizzas.pug", {
-    productData: convertPizza, toppingData: toppingNames,
-    managerType: "pizzas"
+    productData: convertPizza,
+    toppingData: toppingNames,
+    managerType: "pizzas",
   });
 });
 
@@ -104,7 +126,8 @@ router.route("/filter").get(async (req, res) => {
         .sort({ slice_price: -1 })
         .toArray();
       res.render("pizzas.pug", {
-        productData: orderedpizzasASC, toppingData: toppingNames,
+        productData: orderedpizzasASC,
+        toppingData: toppingNames,
         managerType: "pizzas",
       });
       break;
@@ -115,7 +138,8 @@ router.route("/filter").get(async (req, res) => {
         .sort({ slice_price: 1 })
         .toArray();
       res.render("pizzas.pug", {
-        productData: orderedpizzasDES, toppingData: toppingNames,
+        productData: orderedpizzasDES,
+        toppingData: toppingNames,
         managerType: "pizzas",
       });
       break;
@@ -126,7 +150,8 @@ router.route("/filter").get(async (req, res) => {
         .sort({ name: 1 })
         .toArray();
       res.render("pizzas.pug", {
-        productData: orderedpizzasALPHA, toppingData: toppingNames,
+        productData: orderedpizzasALPHA,
+        toppingData: toppingNames,
         managerType: "pizzas",
       });
       break;
@@ -143,15 +168,21 @@ router
     let searchData = { pizza_id: Number(req.params.id) };
     let foundPizza = await allPizzasData.findOne(searchData);
     let convertPizza = [foundPizza];
-    if(res.statusCode == 200 || res.statusCode == 201 || res.statusCode == 204){
+    if (
+      res.statusCode == 200 ||
+      res.statusCode == 201 ||
+      res.statusCode == 204
+    ) {
       res.render("pizzas.pug", {
-        productData: convertPizza, toppingData: toppingNames,
+        productData: convertPizza,
+        toppingData: toppingNames,
         managerType: "pizzas",
       });
     } else {
-      res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+      res.render("404.pug", {
+        messageAlert: "Something went wrong...Error Code: " + res.statusCode,
+      });
     }
-    
   })
   .delete(async (req, res) => {
     let allPizzasData = await pizzaDB.collection("Menu");
@@ -159,10 +190,20 @@ router
     let searchData = { pizza_id: Number(req.params.id) };
     await allPizzasData.deleteOne(searchData);
 
-    if(res.statusCode == 200 || res.statusCode == 201 || res.statusCode == 204){
-      res.render("pizzas.pug", { baseURL: true, managerType: "pizzas", messageAlert: "pizza deleted"});
+    if (
+      res.statusCode == 200 ||
+      res.statusCode == 201 ||
+      res.statusCode == 204
+    ) {
+      res.render("pizzas.pug", {
+        baseURL: true,
+        managerType: "pizzas",
+        messageAlert: "pizza deleted",
+      });
     } else {
-      res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+      res.render("404.pug", {
+        messageAlert: "Something went wrong...Error Code: " + res.statusCode,
+      });
     }
   })
   .patch(async (req, res) => {
@@ -176,12 +217,15 @@ router
           name: req.body.name,
           ingredients: req.body.ingredients,
           whole_price: Number(req.body.whole_price),
-          slice_price: Number(req.body.slice_price)
+          slice_price: Number(req.body.slice_price),
         },
       }
     );
 
-    if (!updateResult) res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
+    if (!updateResult)
+      res.render("404.pug", {
+        messageAlert: "Something went wrong...Error Code: " + res.statusCode,
+      });
     res.json(updateResult).status(200);
   });
 
