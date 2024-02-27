@@ -78,46 +78,47 @@ function makeUpdateForm(pizzaData, toppingData) {
   document.getElementsByTagName("main")[0].append(updateForm);
 }
 
-function makeNewPizzaForm() {
-  let newToppingForm = document.createElement("form");
-  Object.assign(newToppingForm, {
+function makeNewPizzaForm(toppingData) {
+  let newPizzaForm = document.createElement("form");
+  Object.assign(newPizzaForm, {
     method: "POST",
-    action: "http://localhost:3000/toppings/",
+    action: "http://localhost:3000/pizzas/",
   });
-  newToppingForm.setAttribute("id", "newToppingForm");
+  newPizzaForm.setAttribute("id", "newPizzaForm");
   let newTitle = document.createElement("h1");
-  newTitle.innerHTML = "Make a new Topping";
+  newTitle.innerHTML = "Make a new Pizza";
   let newName = document.createElement("input");
   Object.assign(newName, {
     type: "text",
-    placeholder: "Topping name",
+    placeholder: "Pizza name",
     name: "name",
     required: true,
   });
-  let newSelect = document.createElement("select");
-  Object.assign(newSelect, {
-    placeholder: "Type",
-    name: "type",
-    required: true,
-  });
-  let selectOptions = ["vegetable", "meat"];
+  let toppingSelect = document.createElement("div");
+  let selectOptions = toppingData;
   for (optionItem of selectOptions) {
-    var option = document.createElement("option");
-    option.value = optionItem;
-    option.text = optionItem;
-    newSelect.appendChild(option);
+    let option = document.createElement("input");
+    option.type = "checkbox";
+    option.name = optionItem.name;
+    option.id = optionItem.name;
+    let label = document.createElement("label");
+    label.htmlFor = "id";
+    label.appendChild(document.createTextNode(optionItem.name));
+    toppingSelect.appendChild(label);
+    toppingSelect.appendChild(option);
   }
-  let newServingSize = document.createElement("input");
-  Object.assign(newServingSize, {
-    placeholder: "Serving Size",
-    name: "serving_size",
+  let newWholePrice = document.createElement("input");
+  newWholePrice.type = "number";
+  Object.assign(newWholePrice, {
+    placeholder: "Whole Pizza Price",
+    name: "whole_price",
     required: true,
   });
-  let newPrice = document.createElement("input");
-  newPrice.type = "number";
-  Object.assign(newPrice, {
-    placeholder: "Price per serving",
-    name: "price_per_serving",
+  let newSlicePrice = document.createElement("input");
+  newSlicePrice.type = "number";
+  Object.assign(newSlicePrice, {
+    placeholder: "Single Slice Price",
+    name: "slice_price",
     required: true,
   });
   let submitButton = document.createElement("button");
@@ -130,16 +131,16 @@ function makeNewPizzaForm() {
     textContent: "Cancel",
   });
   cancelButton.onclick = () => {
-    newToppingForm.remove();
+    newPizzaForm.remove();
   };
-  newToppingForm.append(
+  newPizzaForm.append(
     newTitle,
     newName,
-    newSelect,
-    newServingSize,
-    newPrice,
+    toppingSelect,
+    newWholePrice,
+    newSlicePrice,
     submitButton,
     cancelButton
   );
-  document.getElementsByTagName("main")[0].append(newToppingForm);
+  document.getElementsByTagName("main")[0].append(newPizzaForm);
 }

@@ -18,7 +18,7 @@ block productContent
             option(value='alphabetical') Alphabetical
             option(value='ascending') Price: High to Low
             option(value='descending') Price: Low to High
-    button(onclick="makeNewPizzaForm()") Add Pizza
+    button(onclick=`makeNewPizzaForm(${JSON.stringify(toppingData)})`) Add Pizza
 
   #productList 
    if baseURL

@@ -51,9 +51,9 @@ router
       .limit(1)
       .toArray();
     if (lastPizza[0].name == req.body.name) {
-      throw new Error("This pizza already exists");
+      res.render("404.pug", { messageAlert: "This pizza already exists. Error: " + res.statusCode})
     }
-
+    addIngredients(req);
     let newPizza = {
       pizza_id: lastPizza[0].pizza_id + 1,
       name: req.body.name,
@@ -89,7 +89,7 @@ router.route("/search").get(async (req, res) => {
   let foundPizza = await allPizzasData.findOne(searchData);
   let convertPizza = [foundPizza];
   res.render("pizzas.pug", {
-    productData: convertPizza,
+    productData: convertPizza, toppingData: toppingNames,
     managerType: "pizzas"
   });
 });
@@ -110,7 +110,7 @@ router.route("/filter").get(async (req, res) => {
         .sort({ slice_price: -1 })
         .toArray();
       res.render("pizzas.pug", {
-        productData: orderedpizzasASC,
+        productData: orderedpizzasASC, toppingData: toppingNames,
         managerType: "pizzas",
       });
       break;
@@ -121,7 +121,7 @@ router.route("/filter").get(async (req, res) => {
         .sort({ slice_price: 1 })
         .toArray();
       res.render("pizzas.pug", {
-        productData: orderedpizzasDES,
+        productData: orderedpizzasDES, toppingData: toppingNames,
         managerType: "pizzas",
       });
       break;
@@ -132,7 +132,7 @@ router.route("/filter").get(async (req, res) => {
         .sort({ name: 1 })
         .toArray();
       res.render("pizzas.pug", {
-        productData: orderedpizzasALPHA,
+        productData: orderedpizzasALPHA, toppingData: toppingNames,
         managerType: "pizzas",
       });
       break;
@@ -151,7 +151,7 @@ router
     let convertPizza = [foundPizza];
     if(res.statusCode == 200 || res.statusCode == 201 || res.statusCode == 204){
       res.render("pizzas.pug", {
-        productData: convertPizza,
+        productData: convertPizza, toppingData: toppingNames,
         managerType: "pizzas",
       });
     } else {
@@ -173,7 +173,6 @@ router
   })
   .patch(async (req, res) => {
     let allPizzasData = await pizzaDB.collection("Menu");
-    // console.log(req.body)
     addIngredients(req);
     let updateResult = await allPizzasData.updateOne(
       { pizza_id: Number(req.params.id) },
@@ -188,7 +187,7 @@ router
       }
     );
 
-    if (!updateResult) res.send("pizza not found").status(400);
+    if (!updateResult) res.render("404.pug", { messageAlert: "Something went wrong...Error Code: " + res.statusCode});
     res.json(updateResult).status(200);
   });
 
