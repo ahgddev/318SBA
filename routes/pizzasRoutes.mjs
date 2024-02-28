@@ -187,7 +187,6 @@ router
   })
   .delete(async (req, res) => {
     let allPizzasData = await pizzaDB.collection("Menu");
-    console.log(req.params.id);
     let searchData = { pizza_id: Number(req.params.id) };
     await allPizzasData.deleteOne(searchData);
 

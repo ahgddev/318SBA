@@ -155,7 +155,6 @@ router
   })
   .delete(async (req, res) => {
     let allToppingsData = await toppingDB.collection("Ingredients");
-    console.log(req.params.id);
     let searchData = { topping_id: Number(req.params.id) };
     await allToppingsData.deleteOne(searchData);
 
