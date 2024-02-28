@@ -32,7 +32,7 @@ HTML,CSS,Javascript (vanilla)
 
 ## Blockers
 The error handling routes and middleware were not working. For example putting in an id in the toppings/# url crashes the app instead of going to the 404 page. I attempted to do the following to fix this,
-- add a route that caught all routes that weren't defined (*), (/*)
+- add a route that caught all routes that weren't defined `(*)`, `(/*)`
 - add a route that would try to catch undefined routes with regex
 - try/catch in the route files and the server.mjs file.
 - if/else based on res status code to render the 404 page.
