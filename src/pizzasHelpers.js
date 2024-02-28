@@ -9,10 +9,7 @@ function makeUpdateForm(pizzaData, toppingData) {
   let updateForm = document.createElement("form");
   Object.assign(updateForm, {
     method: "POST",
-    action:
-      pizzaData.pizza_id +
-      "?_method=patch&id=" +
-      pizzaData.pizza_id,
+    action: pizzaData.pizza_id + "?_method=patch&id=" + pizzaData.pizza_id,
   });
   updateForm.setAttribute("id", "updateForm");
   let helperInput = document.createElement("input");

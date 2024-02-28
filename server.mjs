@@ -21,27 +21,29 @@ app.set("views", "./views");
 app.set("view engine", "pug");
 // const pug = require('pug');
 
-app.use( function ( req, res, next ) {
+app.use(function (req, res, next) {
   res.locals.current_url = req.path;
-  res.locals.base_url = req.baseUrl; 
+  res.locals.base_url = req.baseUrl;
   next();
-  
-} );
+});
 //Error-handling middleware.
 const errorHandler = (err, req, res, next) => {
-  res.status(500).json({ error: 'Internal Server Error' });
+  res.status(500).json({ error: "Internal Server Error" });
 };
 try {
-  app.get('/', function (req, res) {  
-    res.send(pug.renderFile('views/default.pug', {
-      welcomeMessage: "Welcome to the pizza manager! Here is where you can manage Pizza Masterpieces and Toppings. Click any link to the left to start.",
-      managerType: " "
-    }))
+  app.get("/", function (req, res) {
+    res.send(
+      pug.renderFile("views/default.pug", {
+        welcomeMessage:
+          "Welcome to the pizza manager! Here is where you can manage Pizza Masterpieces and Toppings. Click any link to the left to start.",
+        managerType: " ",
+      })
+    );
   });
   app.use("/toppings", toppingRoutes);
-  app.use("/pizzas", pizzasRoutes); 
+  app.use("/pizzas", pizzasRoutes);
 } catch (error) {
-  app.use(errorHandler())
+  app.use(errorHandler());
 }
 
 app.listen(PORT, () => {

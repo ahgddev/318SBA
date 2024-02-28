@@ -7,13 +7,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 function makeUpdateForm(data, url) {
   let updateForm = document.createElement("form");
-  console.log(url)
+  console.log(url);
   Object.assign(updateForm, {
     method: "POST",
-    action:
-      data.topping_id +
-      "?_method=patch&id=" +
-      data.topping_id,
+    action: data.topping_id + "?_method=patch&id=" + data.topping_id,
   });
   updateForm.setAttribute("id", "updateForm");
   let helperInput = document.createElement("input");
@@ -89,7 +86,7 @@ function makeNewToppingForm() {
   let newToppingForm = document.createElement("form");
   Object.assign(newToppingForm, {
     method: "POST",
-    action: "/toppings/"
+    action: "/toppings/",
   });
   newToppingForm.setAttribute("id", "newToppingForm");
   let newTitle = document.createElement("h1");

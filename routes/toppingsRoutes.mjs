@@ -80,7 +80,9 @@ router.route("/all").get(async (req, res) => {
 router.route("/search").get(async (req, res) => {
   let allToppingsData = await toppingDB.collection("Ingredients");
   let searchData = req.query.name;
-  let foundTopping = await allToppingsData.find({name: { $regex: new RegExp(searchData, 'i')}}).toArray();
+  let foundTopping = await allToppingsData
+    .find({ name: { $regex: new RegExp(searchData, "i") } })
+    .toArray();
   res.render("toppings.pug", {
     productData: foundTopping,
     managerType: "toppings",

@@ -100,8 +100,10 @@ router.route("/all").get(async (req, res) => {
 //GET: Get a pizza based on search parameters
 router.route("/search").get(async (req, res) => {
   let allPizzasData = await pizzaDB.collection("Menu");
-  let searchData = req.query.name ;
-  let foundPizza = await allPizzasData.find({name: { $regex: new RegExp(searchData, 'i')}}).toArray();
+  let searchData = req.query.name;
+  let foundPizza = await allPizzasData
+    .find({ name: { $regex: new RegExp(searchData, "i") } })
+    .toArray();
   res.render("pizzas.pug", {
     productData: foundPizza,
     toppingData: toppingNames,
@@ -226,10 +228,10 @@ router
         messageAlert: "Something went wrong...Error Code: " + res.statusCode,
       });
     res.render("pizzas.pug", {
-        baseURL: true,
-        managerType: "pizzas",
-        messageAlert: "Pizza updated.",
-      });
+      baseURL: true,
+      managerType: "pizzas",
+      messageAlert: "Pizza updated.",
+    });
   });
 
 export default router;
