@@ -5,12 +5,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
   searchButton.style.pointerEvents = "all";
 });
 
-function makeUpdateForm(data) {
+function makeUpdateForm(data, url) {
   let updateForm = document.createElement("form");
+  console.log(url)
   Object.assign(updateForm, {
     method: "POST",
     action:
-      "http://localhost:3000/toppings/" +
       data.topping_id +
       "?_method=patch&id=" +
       data.topping_id,
@@ -89,7 +89,7 @@ function makeNewToppingForm() {
   let newToppingForm = document.createElement("form");
   Object.assign(newToppingForm, {
     method: "POST",
-    action: "http://localhost:3000/toppings/",
+    action: "/toppings/"
   });
   newToppingForm.setAttribute("id", "newToppingForm");
   let newTitle = document.createElement("h1");

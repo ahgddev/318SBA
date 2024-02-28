@@ -189,7 +189,11 @@ router
     );
 
     if (!updateResult) res.send("Topping not found").status(400);
-    res.json(updateResult).status(200);
+    res.render("toppings.pug", {
+      baseURL: true,
+      managerType: "toppings",
+      messageAlert: "Topping updated.",
+    });
   });
 
 export default router;

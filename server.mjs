@@ -21,6 +21,12 @@ app.set("views", "./views");
 app.set("view engine", "pug");
 // const pug = require('pug');
 
+app.use( function ( req, res, next ) {
+  res.locals.current_url = req.path;
+  res.locals.base_url = req.baseUrl; 
+  next();
+  
+} );
 //Error-handling middleware.
 const errorHandler = (err, req, res, next) => {
   res.status(500).json({ error: 'Internal Server Error' });

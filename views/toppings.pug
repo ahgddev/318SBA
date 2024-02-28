@@ -13,7 +13,7 @@ block productContent
   h1 Toppings
 
   #toppingListModifications
-    form(method='GET', action='http://localhost:3000/toppings/filter')
+    form(method='GET', action=base_url + "filter")
         select#productFilter(name='q' onchange='this.form.submit()')
             option(value='') 
             option(value='alphabetical') Alphabetical
@@ -34,7 +34,7 @@ block productContent
             p Price per Serving #{product.price_per_serving}
             .itemButtons
                 button(onclick=`makeUpdateForm(${JSON.stringify(product)})`) Edit
-                form#deleteForm(method='POST', action="http://localhost:3000/toppings/"+product.topping_id+"?_method=delete&id="+product.topping_id)
+                form#deleteForm(method='POST', action=base_url +product.topping_id+"?_method=delete&id="+product.topping_id)
                     <input type="hidden" name="_method" value="delete"/>
                     button(name="id" value=product.topping_id onclick="this.form.submit()") Delete
         

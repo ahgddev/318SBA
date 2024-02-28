@@ -10,7 +10,6 @@ function makeUpdateForm(pizzaData, toppingData) {
   Object.assign(updateForm, {
     method: "POST",
     action:
-      "http://localhost:3000/pizzas/" +
       pizzaData.pizza_id +
       "?_method=patch&id=" +
       pizzaData.pizza_id,
@@ -91,7 +90,7 @@ function makeNewPizzaForm(toppingData) {
   let newPizzaForm = document.createElement("form");
   Object.assign(newPizzaForm, {
     method: "POST",
-    action: "http://localhost:3000/pizzas/",
+    action: "/pizzas/",
   });
   newPizzaForm.setAttribute("id", "newPizzaForm");
   let newTitle = document.createElement("h1");

@@ -197,7 +197,7 @@ router
       res.render("pizzas.pug", {
         baseURL: true,
         managerType: "pizzas",
-        messageAlert: "pizza deleted",
+        messageAlert: "Pizza deleted",
       });
     } else {
       res.render("404.pug", {
@@ -225,7 +225,11 @@ router
       res.render("404.pug", {
         messageAlert: "Something went wrong...Error Code: " + res.statusCode,
       });
-    res.json(updateResult).status(200);
+    res.render("pizzas.pug", {
+        baseURL: true,
+        managerType: "pizzas",
+        messageAlert: "Pizza updated.",
+      });
   });
 
 export default router;
