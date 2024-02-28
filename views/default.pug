@@ -6,7 +6,6 @@ head
   link(rel='preconnect', href='https://fonts.googleapis.com')
   link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin='')
   link(href='https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap', rel='stylesheet')
-
   block scripts
   title Pizza Manager
   - var managerT = managerType
@@ -21,15 +20,16 @@ main
     p#userTitle Manager
     ul
       li
-        a(href='http://localhost:3000/pizzas/') Pizza Manager
+        a(href="http://localhost:3000/pizzas/") Pizza Manager
       li
         a(href='http://localhost:3000/toppings/') Toppings Manager
   section#productSection
     #searchContainer
       form(action=`http://localhost:3000/${managerT}/search`, method="GET") 
         input#searchBar(type='search', name='name', placeholder=`Search ${managerT}`)
-        button(type='submit')
+        button#searchBarButton(type='submit')
           img(src='/iconmonstr-magnifier-lined-24.png', alt='search_icon')
+      p #{welcomeMessage}
     #productList
       block productContent
   section

@@ -22,6 +22,10 @@ main {
   padding: 0;
 }
 
+#searchContainer p {
+  padding: 1%;
+}
+
 #searchContainer form {
   padding: 1%;
   display: flex;
@@ -31,4 +35,8 @@ main {
 
 #searchBar {
   line-height: 1.4em;
+}
+
+#searchContainer input, #searchContainer button {
+  pointer-events: none;
 }

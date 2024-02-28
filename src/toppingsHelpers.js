@@ -1,4 +1,9 @@
-function showAddToppingForm() {}
+document.addEventListener("DOMContentLoaded", function (event) {
+  let searchBar = document.getElementById("searchBar");
+  let searchButton = document.getElementById("searchBarButton");
+  searchBar.style.pointerEvents = "all";
+  searchButton.style.pointerEvents = "all";
+});
 
 function makeUpdateForm(data) {
   let updateForm = document.createElement("form");
